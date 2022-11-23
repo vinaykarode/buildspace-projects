@@ -8,7 +8,7 @@ Notice that data field? That's where the metadata sits, it looks like this:
 
 ![](https://hackmd.io/_uploads/Skpzs5smo.png)
 
-Again - there's a lot happening here, we'll get to each part as it's revelant. 
+Again - there's a lot happening here, we'll get to each part as it's relevant.
 
 To interact with the Candy Machine program, we'll use the [Sugar CLI](https://docs.metaplex.com/developer-tools/sugar/overview/introduction). It's a sweet (lol get it?) tool that lets you interact with the program directly from the command line.
 
@@ -34,13 +34,29 @@ This is doing exactly what our script in the local clients did, but in the termi
 #### 🍬 Set up your collection
 This is going to be one of the hardest parts of the build: deciding what you want to make an NFT collection of. You'll need at least 5 images, one for each NFT in your collection. I'm going with some classic pepes because pepes just speak to me.
 
-Make a new project folder in your Solana workspace and create an `assets` folder inside it. You need to pair each NFT asset with a metadata JSON file, numbering each pair from zero. Here's what a pairing looks like:
+Make a new project folder in your Solana workspace and create an `assets` folder inside it. You need to pair each NFT asset with a metadata JSON file, numbering each pair from zero. So, your folder structure should look something like this:
+```
+...
+|
+|── assets
+|   |── 0.png
+|   |── 0.json
+|   |...
+|   |── 5.png
+|   |── 5.json
+|
+|── node_modules
+|── src
+|── package.json
+....
+```
 
+Here's what a JSON-file looks like:
 ![](https://hackmd.io/_uploads/SJWRa5iQs.png)
 
-In practice you'll write a script to generate these files, but for now we'll just do it manually. You can start with [these](https://arweave.net/RhNCVZoqC6iO0xEL0DnsqZGPSG_CK_KeiU4vluOeIoI) example assets and replace the images with your own. Make sure you update the JSON files too!
+In practice, you'll write a script to generate these files, but for now, we'll just do it manually. You can start with [these](https://arweave.net/RhNCVZoqC6iO0xEL0DnsqZGPSG_CK_KeiU4vluOeIoI) example assets and replace the images with your own. Make sure you update the JSON files too!
 
-You can optionally also add a `collection.json` with a matching `collection.png` - these will be used by marketplaces as the collection name, description and thumbnail.
+You can optionally also add a `collection.json` with a matching `collection.png` - these will be used by marketplaces as the collection name, description, and thumbnail.
 
 Here's a template:
 ```json
@@ -65,7 +81,7 @@ Save the crabs 🦀 from the fishermen 🎣
 All you should have right now is a single assets folder with the goods in it (and a ~ folder if you're on Windows).
 
 #### 🍭 Configure your Candy Machine
-The next thing we need to do is create a Candy Machine configuration file. This is what's used to create the on-chain Candy Machine instance. The Sugar CLI will walk you through the mininum requirements so you won't have to do this manually! Here's what it'll look like:
+The next thing we need to do is create a Candy Machine configuration file. This is what's used to create the on-chain Candy Machine instance. The Sugar CLI will walk you through the minimum requirements so you won't have to do this manually! Here's what it'll look like:
 
 ![](https://hackmd.io/_uploads/HJ_dJjsmi.png)
 
@@ -96,7 +112,7 @@ Here are my answers:
 
 We don't need any special features for now. If you're curious, you can read more about them [here](https://docs.metaplex.com/tools/sugar/configuration).
 
-If something breaks or if you want to change you mind mid-way, you can just `CMD/CTRL+C` out of the process and start again. You can also edit the `config.json` file directly. The Sugar CLI prints out really helpful errors so if you get stuck, just read them and you'll probably figure it out.
+If something breaks or if you want to change your mind mid-way, you can just `CMD/CTRL+C` out of the process and start again. You can also edit the `config.json` file directly. The Sugar CLI prints out really helpful errors so if you get stuck, just read them and you'll probably figure it out.
 
 If everything goes well, you'll have a `Command successful.` message in green at the end. Right above it, you'll have a SolanEyes link. Hit that link and you'll see your Candy Machine on the Solana Network! Copy the Candy Machine ID from here, we'll need it later.
 
@@ -110,7 +126,7 @@ Hope you've had your dinner cause it's time for some more CANDY.
 The Metaplex foundation has a slick React UI template you can use to create a front-end for your NFT collection. Let's set it up:
 
 ```bash
-git clone https://github.com/metaplex-foundation/candy-machine-ui candy-machine-ui/
+git clone https://github.com/metaplex-foundation/candy-machine-ui
 cd candy-machine-ui
 npm i
 ```

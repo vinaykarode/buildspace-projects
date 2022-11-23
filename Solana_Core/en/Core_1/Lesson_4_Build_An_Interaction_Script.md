@@ -44,9 +44,7 @@ If you run `npm start` in the terminal, you'll see the script is run! All it tak
 
 Let's add an `initializeKeypair` function that will automatically create a keypair for us if we don't have one. Add this right after the imports:
 ```ts
-async function initializeKeypair(
-  connection: Web3.Connection
-): Promise<Web3.Keypair> {
+async function initializeKeypair(connection: Web3.Connection): Promise<Web3.Keypair> {
   if (!process.env.PRIVATE_KEY) {
     console.log('Generating new keypair... 🗝️');
     const signer = Web3.Keypair.generate();
@@ -65,7 +63,7 @@ async function initializeKeypair(
 ```
 This is a pretty smart function - it'll check if you have a private key in your .env file, and if you don't, it'll make one! 
 
-You're already familiar with everything happening here - we call the `Web3.Keypair.generate()` function and write the resuult to a local [dotenv](https://www.npmjs.com/package/dotenv) file. Once we've created it, we return the keypair so we can use it in the rest of our script.
+You're already familiar with everything happening here - we call the `Web3.Keypair.generate()` function and write the result to a local [dotenv](https://www.npmjs.com/package/dotenv) file. Once we've created it, we return the keypair so we can use it in the rest of our script.
 
 Update your main function and run the script with `npm start` to test it out:
 ```ts
@@ -86,7 +84,7 @@ Creating .env file
 Public key: jTAsqBrjsYp4uEJNmED5R66gHPnFW4wvQrbmFG3c4QS
 Finished successfully
 ```
-Nice! If you check the `.env` file, you'll see a byte format private key! This key is only as secret as the file. If you push this file to a public Github repo, anyone can access funds on it, so make sure you don't use it for real money stuff lol.
+Nice! If you check the `.env` file, you'll see a byte format private key! This key is only as secret as the file. If you push this file to a public GitHub repo, anyone can access funds on it, so make sure you don't use it for real money stuff lol.
 
 Running `npm start` again will use this instead of creating a new one.
 
@@ -94,7 +92,7 @@ It's important to keep testing accounts separate, which is why this script is ex
 
 Now if only we could also automate needing to get devnet SOL. Oh wait, we can!
 
-Check out this sick airdorp function - 
+Check out this sick airdrop function - 
 ```ts
 async function airdropSolIfNeeded(
   signer: Web3.Keypair,
@@ -126,13 +124,13 @@ async function airdropSolIfNeeded(
 }
 ```
 
-This may *seem* overwhelming, but you actually know everything that's happening here! We're using our old friend `getBalance` to check if we're broke, and if we are, we use the  `requestAidrop` function to make it rain. 
+This may *seem* overwhelming, but you actually know everything that's happening here! We're using our old friend `getBalance` to check if we're broke, and if we are, we use the `requestAidrop` function to make it rain. 
 
-Blockhash and block height are block identifiers used to communicate to the network that we're up to date and aren't sending an outdated transactions.
+Blockhash and block height are block identifiers used to communicate to the network that we're up to date and aren't sending outdated transactions.
 
 Don't try running this on a loop though - the faucet has a cooldown and the request will fail if you keep spamming it lol.
 
-Make sure you update the `initializeKeypair` function to call the airdrop after you create/fetch the kepair.
+Make sure you update the `initializeKeypair` function to call the airdrop after you create/fetch the keypair.
 ```ts
   // When generating a keypair
   await airdropSolIfNeeded(signer, connection);
@@ -149,7 +147,7 @@ New balance is 1 SOL
 Public key: 7Fw3bXskk5eonycvET6BSufxAsuNudvuxF7MMnS8KMqX
 ```
 
-We are ready to rrrrrrrrrrrrumble :boxing_glove: 
+We are ready to rrrrrrrrrrrrumble 🥊
 
 #### 🖱 Call an on-chain program
 Time to put our client to use. We're going to write data to an existing program on the Solana network. People think that Solana development is all about writing programs in Rust. Nah! The majority of blockchain development is interacting with existing programs. 
@@ -218,7 +216,7 @@ Add this function call `await pingProgram(connection, signer)` to `main()` and r
 
 You just wrote data to the blockchain. How easy was that?!
 
-This might *seem*  simple, but you just made your mark, quite literally. While everyone on Twitter is yelling about monkey pictures, you're BUILDINGGGGGGGGGGGGGGGGGGG. What you've learnt in this section - reading and writing data from the Solana network, is enough to a make a $10k product. Just imagine what you'll be able to do by the end of this program 🤘
+This might *seem* simple, but you just made your mark, quite literally. While everyone on Twitter is yelling about monkey pictures, you're BUILDINGGGGGGGGGGGGGGGGGGG. What you've learnt in this section - reading and writing data from the Solana network, is enough to make a $10k product. Just imagine what you'll be able to do by the end of this program 🤘
 
 #### 🚢 Ship challenge - a SOL transfer script
 Now that we’ve worked through sending transactions to the network together, it’s your turn to try it out independently. 
@@ -235,4 +233,4 @@ All you'd need to do here is find out what the exact function name is and what t
 
 P.S. if you're sure you've figured it out but the transfer still fails, you might be transferring too little - try to transfer at least 0.1 SOL.
 
-As usual, try to do this on your own before referencing solution code. Once you do need to reference the solution, have a look [here](https://github.com/buildspace/solana-send-sol-client/tree/main). 👀
+As usual, try to do this on your own before referencing the solution code. Once you do need to reference the solution, have a look [here](https://github.com/buildspace/solana-send-sol-client/tree/main). 👀
